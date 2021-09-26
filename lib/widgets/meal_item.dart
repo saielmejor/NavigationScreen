@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:naviagtion_app/models/meal.dart';
+import 'package:naviagtion_app/screens/meal_detail_screen.dart';
 import 'category_item.dart';
+import '../screens/meal_detail_screen.dart';
 
 class MealItem extends StatelessWidget {
+  final String id; 
   final String title;
   final String imageUrl;
   final int duration;
   final Complexity complexity;
   final Affordability affordability;
   MealItem(
-      {@required this.title,
+      {@required this.id,
+        @required this.title,
       @required this.imageUrl,
       @required this.duration,
       @required this.complexity,
@@ -48,14 +52,15 @@ class MealItem extends StatelessWidget {
     }
   }
 
-  void selectMeal() {
-    //navigates to another screen 
-    Navigator.of(context).pushNamed(routeName)
+  void selectMeal(BuildContext context) {
+    //navigates to another screen
+    Navigator.of(context).pushNamed(MealDetailScreen.routeName, arguments:id,);
   }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: selectMeal,
+      onTap: ()=> selectMeal(context),
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
@@ -112,7 +117,7 @@ class MealItem extends StatelessWidget {
                         width: 6,
                       ),
                       Text('$duration min'),
-                    ],  
+                    ],
                   ),
                   Row(
                     children: <Widget>[

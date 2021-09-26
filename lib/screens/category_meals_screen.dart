@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:naviagtion_app/widgets/meal_item.dart';
 import '../dummy_data.dart';
 import '../widgets/meal_item.dart';
+import '../screens/meal_detail_screen.dart'; 
 
 class CategoryMealsScreen extends StatelessWidget {
   // final String categoryId; //constructor when somebody selects the category
@@ -34,6 +35,7 @@ class CategoryMealsScreen extends StatelessWidget {
       body: ListView.builder(
         itemBuilder: (ctx, index) {
           return MealItem(
+              id: categoryMeals[index].id,
               title: categoryMeals[index].title,
               imageUrl: categoryMeals[index].imageUrl,
               duration: categoryMeals[index].duration,
