@@ -4,6 +4,7 @@ import 'package:naviagtion_app/screens/category_meals_screen.dart';
 import 'package:naviagtion_app/screens/meal_detail_screen.dart';
 import 'screens/categories_screen.dart';
 import 'screens/meal_detail_screen.dart';
+import 'screens/tabs_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -44,7 +45,7 @@ class MyApp extends StatelessWidget {
         // home: CategoriesScreen(),
         //you can identify the routes or scren
         routes: {
-          '/': (ctx) => CategoriesScreen(),
+          '/': (ctx) => TabsScren(),
           CategoryMealsScreen.routeName: (ctx) => CategoryMealsScreen(),
           MealDetailScreen.routeName: (ctx) => MealDetailScreen()
         },
