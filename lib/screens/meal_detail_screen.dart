@@ -90,6 +90,13 @@ class MealDetailScreen extends StatelessWidget {
           ],
         ),
       ),
+      //create an icon to delete the current page and pass data back
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.delete),
+        onPressed: () {
+          Navigator.of(context).pop(mealId);//forwards mealId
+        },
+      ),
     );
   }
 }
