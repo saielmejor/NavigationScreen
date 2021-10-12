@@ -7,12 +7,36 @@ import 'screens/categories_screen.dart';
 import 'screens/meal_detail_screen.dart';
 import 'screens/tabs_screen.dart';
 import 'screens/filter_screen.dart';
+import './dummy_data.dart';
+import './models/meal.dart';
+
 void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   // This widget is the root of your application.
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  Map<String, bool> _filters = {
+    'gluten': false,
+    'lactose': false,
+    'vegan': false,
+    'vegetarian': false
+  };
+  // create a list of meals from dummy_data.dart
+  List<Meal> _availableMeals = DUMMY_MEALS;
+  //new method to get a map
+  void _setFilters(Map<String, bool> filterData) {
+    setState(() {
+      _filters = filterData; // update filters properties
+      _availableMeals = DUMMY_MEALS.where((meal) {}).toList();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -47,9 +71,10 @@ class MyApp extends StatelessWidget {
         //you can identify the routes or scren
         routes: {
           '/': (ctx) => TabsScren(),
-          CategoryMealsScreen.routeName: (ctx) => CategoryMealsScreen(),
+          CategoryMealsScreen.routeName: (ctx) => CategoryMealsScreen(_availableMeals),
           MealDetailScreen.routeName: (ctx) => MealDetailScreen(),
-          FiltersScreen.routeName:(ctx)=> FiltersScreen(),
+          FiltersScreen.routeName: (ctx) =>
+              FiltersScreen(_setFilters), // add a pointer to setFilter
         },
         // onGenerateRoute: (settings) {
         //   print(settings.arguments);
