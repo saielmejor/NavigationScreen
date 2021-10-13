@@ -4,8 +4,9 @@ import '../widgets/main_drawer.dart';
 class FiltersScreen extends StatefulWidget {
   static const routeName = '/filters';
 // now you can set a saveFilters and constructor FilterScreen
+  final Map<String, bool> currentFilters;
   final Function saveFilters;
-  FiltersScreen(this.saveFilters);
+  FiltersScreen(this.currentFilters, this.saveFilters);
   @override
   _FiltersScreenState createState() => _FiltersScreenState();
 }
@@ -15,6 +16,17 @@ class _FiltersScreenState extends State<FiltersScreen> {
   bool _vegetarian = false;
   bool _vegan = false;
   bool _lactoseFree = false;
+  //set init state and override the current state
+
+  @override
+  initState() {
+    _glutenFree = widget.currentFilters['gluten'];
+    _lactoseFree = widget.currentFilters['lactose'];
+    _vegetarian = widget.currentFilters['vegetarian'];
+    _vegan = widget.currentFilters['vegan'];
+
+    super.initState();
+  }
 
   Widget _buildSwitchListTile(String title, String description,
       bool currentValue, Function updateValue) {
@@ -33,7 +45,16 @@ class _FiltersScreenState extends State<FiltersScreen> {
       appBar: AppBar(title: Text('Your Filters'), actions: <Widget>[
         IconButton(
           icon: Icon(Icons.save),
-          onPressed: widget.saveFilters,
+          onPressed: () {
+            //pass a map to the onPressed filter
+            final selectedFilters = {
+              'gluten': false,
+              'lactose': false,
+              'vegan': false,
+              'vegetarian': false,
+            };
+            widget.saveFilters(selectedFilters);
+          },
         ) // you can access the widget from the state
       ]),
       drawer: MainDrawer(),

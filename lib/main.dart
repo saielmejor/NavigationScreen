@@ -29,11 +29,27 @@ class _MyAppState extends State<MyApp> {
   };
   // create a list of meals from dummy_data.dart
   List<Meal> _availableMeals = DUMMY_MEALS;
+  //create a list if favorite meals
+  List<Meal> _favoritedMeals = []; // leave as empty as default 
   //new method to get a map
   void _setFilters(Map<String, bool> filterData) {
     setState(() {
       _filters = filterData; // update filters properties
-      _availableMeals = DUMMY_MEALS.where((meal) {}).toList();
+      _availableMeals = DUMMY_MEALS.where((meal) {
+        if (_filters['gluten'] && !meal.isGlutenFree) {
+          return false;
+        }
+        if (_filters['lactose'] && !meal.isLactoseFree) {
+          return false;
+        }
+        if (_filters['vegan'] && !meal.isVegan) {
+          return false;
+        }
+        if (_filters['vegetarian'] && !meal.isVegetarian) {
+          return false;
+        }
+        return true;
+      }).toList();
     });
   }
 
@@ -70,11 +86,12 @@ class _MyAppState extends State<MyApp> {
         // home: CategoriesScreen(),
         //you can identify the routes or scren
         routes: {
-          '/': (ctx) => TabsScren(),
-          CategoryMealsScreen.routeName: (ctx) => CategoryMealsScreen(_availableMeals),
+          '/': (ctx) => TabsScren(_favoritedMeals),//forward favorited meals 
+          CategoryMealsScreen.routeName: (ctx) =>
+              CategoryMealsScreen(_availableMeals),
           MealDetailScreen.routeName: (ctx) => MealDetailScreen(),
           FiltersScreen.routeName: (ctx) =>
-              FiltersScreen(_setFilters), // add a pointer to setFilter
+              FiltersScreen(_filters, _setFilters) // add a pointer to setFilter
         },
         // onGenerateRoute: (settings) {
         //   print(settings.arguments);
