@@ -3,6 +3,9 @@ import '../dummy_data.dart';
 
 class MealDetailScreen extends StatelessWidget {
   static const routeName = '/meal-detail';
+  final Function toggleFavorite;
+  final Function isFavorite;
+  MealDetailScreen(this.toggleFavorite, this.isFavorite);
 
   //create a buildSectionTitle
 
@@ -92,10 +95,10 @@ class MealDetailScreen extends StatelessWidget {
       ),
       //create an icon to delete the current page and pass data back
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.delete),
-        onPressed: () {
-          Navigator.of(context).pop(mealId);//forwards mealId
-        },
+        child: Icon(isFavorite(mealId) ? Icons.star : Icons.star_border),
+        // if the meal is favorite then it will create a star
+        onPressed: () => toggleFavorite(
+            mealId), //you need to pass down mealId in order to work
       ),
     );
   }

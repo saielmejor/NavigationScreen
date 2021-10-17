@@ -30,7 +30,7 @@ class _MyAppState extends State<MyApp> {
   // create a list of meals from dummy_data.dart
   List<Meal> _availableMeals = DUMMY_MEALS;
   //create a list if favorite meals
-  List<Meal> _favoritedMeals = []; // leave as empty as default 
+  List<Meal> _favoritedMeals = []; // leave as empty as default
   //new method to get a map
   void _setFilters(Map<String, bool> filterData) {
     setState(() {
@@ -51,6 +51,33 @@ class _MyAppState extends State<MyApp> {
         return true;
       }).toList();
     });
+  }
+
+//create a function to manage favorite filters
+
+  void _toggleFavorite(String mealId) {
+    final existingIndex =
+        _favoritedMeals.indexWhere((meal) => meal.id == mealId);
+    //create if statement to findout if the existing index is true . this is true if its  > 0
+
+    if (existingIndex >= 0) {
+      setState(
+        () {
+          _favoritedMeals.removeAt(existingIndex);
+          // if true it will toggle the selected favoritedmeal back to false s
+        },
+      );
+    } else {
+      setState(() {
+        _favoritedMeals
+            .add(DUMMY_MEALS.firstWhere((meal) => meal.id == mealId));
+      });
+    }
+  }
+
+  //checking if the meal is favorite
+  bool _isMealFavorite(String id) {
+    return _favoritedMeals.any((meal) => meal.id == id);
   }
 
   @override
@@ -86,10 +113,11 @@ class _MyAppState extends State<MyApp> {
         // home: CategoriesScreen(),
         //you can identify the routes or scren
         routes: {
-          '/': (ctx) => TabsScren(_favoritedMeals),//forward favorited meals 
+          '/': (ctx) => TabsScren(_favoritedMeals), //forward favorited meals
           CategoryMealsScreen.routeName: (ctx) =>
               CategoryMealsScreen(_availableMeals),
-          MealDetailScreen.routeName: (ctx) => MealDetailScreen(),
+          MealDetailScreen.routeName: (ctx) =>
+              MealDetailScreen(_toggleFavorite, _isMealFavorite),
           FiltersScreen.routeName: (ctx) =>
               FiltersScreen(_filters, _setFilters) // add a pointer to setFilter
         },

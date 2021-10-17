@@ -11,7 +11,7 @@ class MealItem extends StatelessWidget {
   final int duration;
   final Complexity complexity;
   final Affordability affordability;
-  final Function removeItem;
+  
   MealItem(
       {@required this.id,
       @required this.title,
@@ -19,7 +19,7 @@ class MealItem extends StatelessWidget {
       @required this.duration,
       @required this.complexity,
       @required this.affordability,
-      @required this.removeItem});
+      });
 
   // you need to get complexityText
   String get complexityText {
@@ -64,7 +64,7 @@ class MealItem extends StatelessWidget {
         //this is a future
         .then((result) {
       if (result != null) {
-        removeItem(result); //removes item
+       // removeItem(result); //removes item
       }
       ; // this will show up once the user
       //pops out from the screen.

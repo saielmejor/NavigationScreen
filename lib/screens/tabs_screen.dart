@@ -16,7 +16,7 @@ class _TabsScrenState extends State<TabsScren> {
   List<Map<String, Object>> _pages;
   int _selectedPageIndex = 0;
 
-// pass the pages inside init state to allow use widget property 
+// pass the pages inside init state to allow  use widget property 
   @override
   void initState() {
     //initialize pages here

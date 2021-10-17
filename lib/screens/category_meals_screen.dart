@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:naviagtion_app/widgets/meal_item.dart';
-import '../dummy_data.dart';
+
 import '../widgets/meal_item.dart';
-import '../screens/meal_detail_screen.dart';
 import '../models/meal.dart';
 
 class CategoryMealsScreen extends StatefulWidget {
@@ -10,8 +8,10 @@ class CategoryMealsScreen extends StatefulWidget {
   // final String categoryTitle;
 
   // CategoryMealsScreen(this.categoryId, this.categoryTitle);
-  static const routeName = 'category-meals';
+  static const routeName = '/category-meals';
+
   final List<Meal> availableMeals;
+
   CategoryMealsScreen(
       this.availableMeals); // initialize availableMeals from the main.dart
   @override
@@ -37,7 +37,8 @@ class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
       // this will inform dart that whatever we get as an argumen it will
       // be map string keys and vavules
       //accessing route arguments by using routeArgs
-      final categoryTitle = routeArgs['title'];
+      categoryTitle = routeArgs[
+          'title']; //categoryTitle is not final because it will change
       final categoryId = routeArgs['id'];
       //you need to filter the category id from the dummy data list
       displayedMeals = widget.availableMeals.where((meal) {
@@ -73,8 +74,7 @@ class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
               imageUrl: displayedMeals[index].imageUrl,
               duration: displayedMeals[index].duration,
               affordability: displayedMeals[index].affordability,
-              complexity: displayedMeals[index].complexity,
-              removeItem: _removeMeal);
+              complexity: displayedMeals[index].complexity);
         },
         itemCount: displayedMeals.length,
       ),
