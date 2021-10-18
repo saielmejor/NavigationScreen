@@ -68,7 +68,7 @@ class _MyAppState extends State<MyApp> {
         },
       );
     } else {
-      setState(() {
+      setState(() { //add set state to change the state 
         _favoritedMeals
             .add(DUMMY_MEALS.firstWhere((meal) => meal.id == mealId));
       });

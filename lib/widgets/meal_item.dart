@@ -66,7 +66,7 @@ class MealItem extends StatelessWidget {
       if (result != null) {
        // removeItem(result); //removes item
       }
-      ; // this will show up once the user
+      // this will show up once the user
       //pops out from the screen.
     });
   }
